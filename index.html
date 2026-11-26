@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f172a">
+  <title>Nedia — Smart Student Alarm & Study Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%233b82f6'/><circle cx='50' cy='52' r='30' fill='none' stroke='white' stroke-width='7'/><path d='M50 35v18l12 8' fill='none' stroke='%23fbbf24' stroke-width='7' stroke-linecap='round'/><path d='M22 22l12-10M78 22L66 12' stroke='white' stroke-width='7' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <!-- ==================== ONBOARDING / NAME REGISTRATION ==================== -->
+  <div id="onboarding-screen" class="screen active-screen">
+    <div class="onboard-card">
+      <div class="logo-wrapper">
+        <svg class="app-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+          <rect width="100" height="100" rx="26" fill="url(#logoGrad)"/>
+          <circle cx="50" cy="54" r="28" fill="none" stroke="#ffffff" stroke-width="6"/>
+          <path d="M50 38v17l11 7" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/>
+          <path d="M24 24l11-9M76 24L65 15" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>Welcome to Nedia ✨</h1>
+      <p class="subtitle">Your personal wake-up & deep study companion. To dismiss alarms, you'll type your registered name so you never oversleep!</p>
+      
+      <div class="input-group">
+        <label for="register-name-input">👤 Enter Your Name</label>
+        <input type="text" id="register-name-input" placeholder="e.g., Alex" autocomplete="off">
+      </div>
+      <button id="save-name-btn" class="btn primary-btn">Get Started 🚀</button>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN APP SHELL ==================== -->
+  <div id="main-app" class="hidden">
+    
+    <!-- Top Header -->
+    <header class="top-bar">
+      <div class="brand">
+        <svg class="mini-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="24" fill="#3b82f6"/>
+          <circle cx="50" cy="54" r="28" fill="none" stroke="#fff" stroke-width="7"/>
+          <path d="M50 38v17l11 7" fill="none" stroke="#fbbf24" stroke-width="7" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <h2 id="user-greeting">Hey there! 👋</h2>
+          <span id="live-clock" class="live-clock">00:00:00</span>
+        </div>
+      </div>
+      <button id="install-app-btn" class="btn install-pill hidden">📲 Install App</button>
+    </header>
+
+    <!-- 7:00 PM Reminder Banner -->
+    <div id="evening-reminder-banner" class="reminder-banner hidden">
+      <div class="reminder-content">
+        <span class="reminder-emoji">🌙✨</span>
+        <div>
+          <strong>Future You Will Thank You!</strong>
+          <p id="persuasive-text">It's past 7:00 PM and you haven't set an alarm yet. Lock in tomorrow's win right now!</p>
+        </div>
+      </div>
+      <button id="dismiss-reminder-btn" class="icon-btn">✖️</button>
+    </div>
+
+    <!-- ==================== PAGE 1: ALARMS ==================== -->
+    <main id="page-alarms" class="page active-page">
+      <!-- Digital Alarm Setter Board -->
+      <section class="board">
+        <div class="board-header">
+          <h3>⏰ Set Digital Alarm</h3>
+          <span class="badge">24-Hour Format</span>
+        </div>
+
+        <div class="digital-picker">
+          <div class="time-box">
+            <input type="number" id="alarm-hour" min="0" max="23" placeholder="07" inputmode="numeric">
+            <span>HOURS (00-23)</span>
+          </div>
+          <div class="time-colon">:</div>
+          <div class="time-box">
+            <input type="number" id="alarm-minute" min="0" max="59" placeholder="30" inputmode="numeric">
+            <span>MINUTES (00-59)</span>
+          </div>
+        </div>
+
+        <div id="countdown-preview" class="countdown-box">
+          ⏳ Enter hours and minutes to see time remaining
+        </div>
+
+        <div class="input-group">
+          <label for="alarm-label">🏷️ Alarm Label (Optional)</label>
+          <input type="text" id="alarm-label" placeholder="e.g., Morning Lecture 📚">
+        </div>
+
+        <div class="input-group">
+          <label for="sound-select">🎵 Choose Alarm Sound</label>
+          <select id="sound-select">
+            <option value="builtin-chime">🔔 Built-in: Classic Morning Chime</option>
+            <option value="builtin-digital">📟 Built-in: Crisp Digital Beep</option>
+            <option value="builtin-zen">🌿 Built-in: Gentle Zen Bells</option>
+            <option value="custom">📁 Upload Audio From Phone...</option>
+          </select>
+        </div>
+
+        <div id="custom-upload-box" class="input-group hidden">
+          <label for="custom-audio-file">📂 Select Music / Audio File</label>
+          <input type="file" id="custom-audio-file" accept="audio/*">
+          <small id="uploaded-file-name" class="helper-text">No file selected yet</small>
+        </div>
+
+        <div class="btn-row">
+          <button id="preview-sound-btn" class="btn secondary-btn">🔊 Test Sound</button>
+          <button id="add-alarm-btn" class="btn primary-btn">✅ Save Alarm</button>
+        </div>
+      </section>
+
+      <!-- Active Alarms & History Board -->
+      <section class="board">
+        <div class="board-header">
+          <h3>📋 Your Alarms</h3>
+          <button id="clear-all-alarms-btn" class="text-danger-btn">🗑️ Clear All</button>
+        </div>
+        <div id="alarms-list" class="alarms-list">
+          <!-- Alarms injected here -->
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== PAGE 2: STUDY STOPWATCH ==================== -->
+    <main id="page-study" class="page">
+      <section class="board study-board">
+        <div class="board-header">
+          <h3>⏱️ Deep Focus Stopwatch</h3>
+          <span class="badge">Track Your Grind</span>
+        </div>
+        <p class="board-desc">Count up your study session effortlessly. Hit lap to mark completed chapters or topics! 📖</p>
+
+        <div class="stopwatch-circle">
+          <div id="stopwatch-display" class="stopwatch-time">00:00:00</div>
+          <span id="stopwatch-ms" class="stopwatch-ms">.00</span>
+        </div>
+
+        <div class="btn-row">
+          <button id="sw-start-btn" class="btn primary-btn">▶️ Start</button>
+          <button id="sw-lap-btn" class="btn secondary-btn" disabled>🚩 Lap</button>
+          <button id="sw-reset-btn" class="btn danger-btn">🔄 Reset</button>
+        </div>
+      </section>
+
+      <section class="board">
+        <div class="board-header">
+          <h3>📝 Study Session Laps</h3>
+          <span id="lap-count" class="badge">0 Laps</span>
+        </div>
+        <ul id="laps-list" class="laps-list">
+          <li class="empty-state">No laps recorded yet. Start studying! 🧠</li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- ==================== PAGE 3: SETTINGS & APK GUIDE ==================== -->
+    <main id="page-settings" class="page">
+      <section class="board">
+        <div class="board-header">
+          <h3>⚙️ Profile & Alerts</h3>
+        </div>
+        <div class="input-group">
+          <label for="update-name-input">👤 Registered Wake-Up Name</label>
+          <input type="text" id="update-name-input">
+        </div>
+        <button id="update-name-btn" class="btn primary-btn">💾 Update Name</button>
+      </section>
+
+      <section class="board">
+        <div class="board-header">
+          <h3>🔔 Background & 7 PM Reminders</h3>
+        </div>
+        <p class="board-desc">Enable system notifications so Nedia can remind you at 7:00 PM if you forgot to set an alarm, and alert you in the background.</p>
+        <button id="enable-notif-btn" class="btn secondary-btn">🔔 Allow Notifications</button>
+      </section>
+
+      <section class="board">
+        <div class="board-header">
+          <h3>📦 Turn Into Android APK</h3>
+        </div>
+        <p class="board-desc">Want Nedia as a real Android APK that runs even when closed?</p>
+        <ol class="apk-steps">
+          <li>Host these files on <strong>GitHub Pages</strong> (HTTPS).</li>
+          <li>Visit <strong>pwabuilder.com</strong> on your browser.</li>
+          <li>Paste your GitHub Pages link and click <strong>Package for Stores → Android</strong> to download your installable <code>.apk</code>!</li>
+        </ol>
+      </section>
+    </main>
+
+    <!-- Bottom Tab Navigation -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-target="page-alarms">
+        <span class="nav-icon">⏰</span>
+        <span>Alarms</span>
+      </button>
+      <button class="nav-btn" data-target="page-study">
+        <span class="nav-icon">⏱️</span>
+        <span>Study Timer</span>
+      </button>
+      <button class="nav-btn" data-target="page-settings">
+        <span class="nav-icon">⚙️</span>
+        <span>Settings</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ==================== FULLSCREEN RINGING MODAL ==================== -->
+  <div id="ringing-modal" class="ringing-overlay hidden">
+    <div class="ringing-card">
+      <div class="ringing-icon">🚨⏰🚨</div>
+      <h2 id="ringing-time-display">07:30</h2>
+      <p id="ringing-label-display">Time to wake up!</p>
+      
+      <div class="dismiss-challenge">
+        <p>Type your registered name (<strong id="target-name-hint"></strong>) to stop the alarm:</p>
+        <input type="text" id="dismiss-name-input" placeholder="Type your name..." autocomplete="off">
+        <p id="dismiss-error" class="error-text hidden">❌ Name doesn't match! Keep trying!</p>
+        <button id="stop-alarm-btn" class="btn danger-btn full-width">🛑 Stop Alarm</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

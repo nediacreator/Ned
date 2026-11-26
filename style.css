@@ -1,0 +1,591 @@
+:root {
+  --bg-main: #0b1120;
+  --bg-board: #1e293b;
+  --bg-input: #0f172a;
+  --border-color: #334155;
+  --text-primary: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ==================== ONBOARDING SCREEN ==================== */
+.screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(circle at top, #1e293b 0%, #0b1120 100%);
+}
+
+.onboard-card {
+  background: var(--bg-board);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 32px 24px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.app-logo {
+  width: 84px;
+  height: 84px;
+  filter: drop-shadow(0 8px 16px rgba(59, 130, 246, 0.35));
+}
+
+.onboard-card h1 {
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* ==================== TOP BAR & REMINDERS ==================== */
+.top-bar {
+  background: rgba(30, 41, 59, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mini-logo {
+  width: 40px;
+  height: 40px;
+}
+
+.brand h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.live-clock {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.reminder-banner {
+  background: linear-gradient(135deg, #312e81, #1e1b4b);
+  border: 1px solid #6366f1;
+  margin: 14px 16px 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  animation: slideDown 0.3s ease;
+}
+
+.reminder-content {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.reminder-emoji {
+  font-size: 1.6rem;
+}
+
+.reminder-content p {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ==================== PAGES & BOARDS ==================== */
+.page {
+  display: none;
+  padding: 16px 16px 96px;
+  max-width: 540px;
+  width: 100%;
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.page.active-page {
+  display: flex;
+}
+
+.board {
+  background: var(--bg-board);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.board-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.board-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.badge {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* ==================== DIGITAL ALARM PICKER ==================== */
+.digital-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.time-box input {
+  width: 100%;
+  height: 84px;
+  font-size: 2.75rem;
+  font-weight: 800;
+  text-align: center;
+  background: var(--bg-input);
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  transition: border-color 0.2s;
+}
+
+.time-box input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.time-box span {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.time-colon {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  padding-bottom: 18px;
+}
+
+.countdown-box {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ==================== FORM INPUTS & BUTTONS ==================== */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+input[type="text"],
+select,
+input[type="file"] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.helper-text {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 13px 18px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+  flex: 1;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: #fff;
+}
+
+.secondary-btn {
+  background: #334155;
+  color: #f8fafc;
+}
+
+.danger-btn {
+  background: var(--danger);
+  color: #fff;
+}
+
+.install-pill {
+  flex: initial;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  background: var(--success);
+  color: #fff;
+  border-radius: 999px;
+}
+
+.text-danger-btn {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ==================== ALARMS LIST ==================== */
+.alarms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alarm-item {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alarm-info h4 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.alarm-info p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.alarm-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.toggle-on {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.toggle-off {
+  background: rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+}
+
+.delete-item-btn {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ==================== STUDY STOPWATCH ==================== */
+.study-board {
+  text-align: center;
+}
+
+.stopwatch-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 6px solid var(--accent);
+  background: var(--bg-input);
+  margin: 16px auto 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+}
+
+.stopwatch-time {
+  font-size: 2.35rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.stopwatch-ms {
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.laps-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.laps-list li {
+  background: var(--bg-input);
+  padding: 10px 14px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+}
+
+.empty-state {
+  color: var(--text-muted);
+  text-align: center;
+  justify-content: center !important;
+}
+
+.apk-steps {
+  padding-left: 20px;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ==================== BOTTOM NAVIGATION ==================== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  z-index: 30;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+}
+
+.nav-btn.active {
+  color: var(--accent);
+}
+
+.nav-icon {
+  font-size: 1.35rem;
+}
+
+/* ==================== FULLSCREEN RINGING MODAL ==================== */
+.ringing-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 17, 32, 0.96);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ringing-card {
+  background: var(--bg-board);
+  border: 2px solid var(--danger);
+  border-radius: 24px;
+  padding: 32px 24px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: pulseBorder 1.2s infinite;
+}
+
+.ringing-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.ringing-card h2 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.dismiss-challenge {
+  margin-top: 20px;
+  text-align: left;
+  background: var(--bg-input);
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.dismiss-challenge p {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  color: #e2e8f0;
+}
+
+.error-text {
+  color: #f87171 !important;
+  font-size: 0.85rem !important;
+  margin-top: 6px;
+}
+
+@keyframes pulseBorder {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+  50% { box-shadow: 0 0 0 16px rgba(239, 68, 68, 0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
